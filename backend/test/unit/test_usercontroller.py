@@ -48,9 +48,9 @@ def test_get_user_by_email_invalid_email_format(user_controller):
         user_controller.get_user_by_email("abc.com")
 
 # case6: Invalid email (missing domain)
-def test_get_user_by_email_missing_domain(user_controller, mock_dao): 
-    mock_dao.find.return_value = [] 
-    with pytest.raises(ValueError): 
+def test_get_user_by_email_invalid_format(user_controller, mock_dao):
+    mock_dao.find.return_value = [None]
+    with pytest.raises(ValueError):
         user_controller.get_user_by_email("abc@")
 
 # case7: DAO exception
