@@ -29,14 +29,11 @@ def dao():
 # case 1: Successful creation
 def test_create_valid_data(dao):
     data = {"name": "Alice", "active": True}
-
     result = dao.create(data)
-
     assert result is not None
     assert "_id" in result
     assert result["name"] == "Alice"
     assert result["active"] is True
-
 
 # case 2: Missing required field
 def test_create_missing_required_field(dao):
