@@ -37,24 +37,24 @@ def test_get_user_by_email_no_user(user_controller, mock_dao):
     result = user_controller.get_user_by_email("test@example.com")
     assert result is None
 
-# case4: Empty email
-def test_get_user_by_email_empty_email(user_controller):
-    with pytest.raises(ValueError):
-        user_controller.get_user_by_email("")
-
-# case5: Invalid email (no @)
-def test_get_user_by_email_invalid_email_format(user_controller):
-    with pytest.raises(ValueError):
-        user_controller.get_user_by_email("abc.com")
-
-# case6: Invalid email (missing domain)
-def test_get_user_by_email_invalid_format(user_controller, mock_dao):
-    mock_dao.find.return_value = [None]
-    with pytest.raises(ValueError):
-        user_controller.get_user_by_email("abc@")
-
-# case7: DAO exception
+# case4: DAO exception
 def test_get_user_by_email_dao_exception(user_controller, mock_dao):
     mock_dao.find.side_effect = Exception("DB failure")
     with pytest.raises(Exception):
         user_controller.get_user_by_email("test@example.com")
+
+# case5: Empty email
+def test_get_user_by_email_empty_email(user_controller):
+    with pytest.raises(ValueError):
+        user_controller.get_user_by_email("")
+
+# case6: Invalid email (no @)
+def test_get_user_by_email_invalid_email_format(user_controller):
+    with pytest.raises(ValueError):
+        user_controller.get_user_by_email("abc.com")
+
+# case7: Invalid email (missing domain)
+def test_get_user_by_email_invalid_format(user_controller, mock_dao):
+    mock_dao.find.return_value = [None]
+    with pytest.raises(ValueError):
+        user_controller.get_user_by_email("abc@")
